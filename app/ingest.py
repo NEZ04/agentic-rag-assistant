@@ -76,7 +76,13 @@ def chunk_text(text: str, size: int = config.CHUNK_SIZE, overlap: int = config.C
             chunks.append(chunk)
         if end >= len(text):
             break
-        start = end - overlap  # step back by `overlap` so neighbours share context
+        # Step back by `overlap` so neighbours share context, then move forward
+        # to the next space so the new chunk doesn't start mid-word.
+        next_start = end - overlap
+        space = text.find(" ", next_start, end)
+        if space != -1:
+            next_start = space + 1
+        start = max(next_start, start + 1)  # always move forward, never loop forever
     return chunks
 
 
