@@ -18,5 +18,16 @@ def test_overlap_covers_whole_text():
     assert chunks[-1].endswith(text[-10:])
 
 
+def test_chunks_do_not_start_mid_word():
+    text = " ".join(f"word{i}" for i in range(400))
+    for c in chunk_text(text, size=200, overlap=50):
+        assert c.startswith("word")
+
+
+def test_large_overlap_terminates():
+    text = "Sentence one.\n" * 200
+    assert chunk_text(text, size=200, overlap=150)
+
+
 def test_empty_text():
     assert chunk_text("", size=100, overlap=10) == []
