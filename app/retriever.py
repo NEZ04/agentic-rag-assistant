@@ -44,4 +44,5 @@ class Retriever:
 if __name__ == "__main__":
     r = Retriever()
     for hit in r.search(" ".join(sys.argv[1:]) or "test"):
-        print(f"[{hit['score']:.3f}] {hit['source']} p{hit['page']}: {hit['text'][:150]}...")
+        where = hit["source"] if hit["page"] is None else f"{hit['source']} p{hit['page']}"
+        print(f"[{hit['score']:.3f}] {where}: {hit['text'][:150]}...")
