@@ -15,4 +15,6 @@ OLLAMA_URL = "http://localhost:11434"
 CHUNK_SIZE = 800      # characters per chunk
 CHUNK_OVERLAP = 150   # characters shared between neighbouring chunks
 TOP_K = 4             # chunks returned per query
-MIN_SCORE = 0.35      # below this cosine similarity a chunk counts as "not relevant"
+# Below this cosine similarity a chunk counts as "not relevant". Tuned with
+# scripts/score_check.py: on-topic questions scored >= 0.24, off-topic <= 0.21.
+MIN_SCORE = 0.22

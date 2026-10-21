@@ -137,8 +137,14 @@ def build_graph():
     return g.compile()
 
 
+_graph = None
+
+
 def ask(question: str) -> AgentState:
-    return build_graph().invoke({"question": question})
+    global _graph
+    if _graph is None:
+        _graph = build_graph()  # compile once, reuse for every request
+    return _graph.invoke({"question": question})
 
 
 if __name__ == "__main__":

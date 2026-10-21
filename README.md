@@ -2,7 +2,7 @@
 
 A question-answering assistant over your own documents, built with fully free, local components.
 
-> Work in progress. Retrieval and the agent are done; the API and UI are next.
+> Retrieval, agent, API and chat UI are done. Docker and a larger evaluation set are next.
 
 ## How it works
 ```
@@ -26,7 +26,7 @@ question ──▶ route ──math──▶ safe calculator ──▶ answer
 ## Roadmap
 - [x] Ingestion, chunking, FAISS retrieval
 - [x] LangGraph agent with routing, calculator and grounded answers
-- [ ] FastAPI + Streamlit chat UI
+- [x] FastAPI + Streamlit chat UI
 - [ ] Docker + evaluation
 
 ## Run
@@ -35,9 +35,22 @@ pip install -r requirements.txt
 ollama pull llama3.2:3b
 mkdir -p data/docs        # put your PDFs / .txt / .md files here
 python -m app.ingest
-python -m app.agent "How does a photovoltaic cell work?"
-pytest
+python -m app.agent "How does a photovoltaic cell work?"   # CLI
+uvicorn app.api:app --port 8000                             # API, docs at /docs
+streamlit run ui/app.py                                     # chat UI at :8501
+pytest                                                      # unit + API tests
+python scripts/smoke_test.py                                # end-to-end check
 ```
+
+## API
+`POST /ask` with `{"question": "..."}` returns
+```json
+{"answer": "...", "route": "docs", "sources": ["notes.pdf p3"]}
+```
+`GET /health` returns `{"status": "ok"}`. Errors: `422` for an empty question, `503` if the model or index isn't available.
+
+## Relevance threshold
+`MIN_SCORE` decides when the assistant says "I don't know". `scripts/score_check.py` prints the top retrieval score for on-topic and off-topic questions. On the sample notes, on-topic questions scored 0.24 or higher and off-topic ones 0.21 or lower, so the threshold is 0.22. Re-run it when you add your own documents.
 
 ## Example
 ```
