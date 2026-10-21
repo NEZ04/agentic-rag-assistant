@@ -2,7 +2,7 @@
 
 A question-answering assistant over your own documents, built with fully free, local components.
 
-> Retrieval, agent, API, chat UI and an evaluation set are done. Docker files are included but not yet tested on a real Docker install.
+> Retrieval, agent, API, chat UI, evaluation set and Docker setup are all done and tested.
 
 ## How it works
 ```
@@ -28,7 +28,7 @@ question ──▶ route ──math──▶ safe calculator ──▶ answer
 - [x] LangGraph agent with routing, calculator and grounded answers
 - [x] FastAPI + Streamlit chat UI
 - [x] Evaluation set (20 questions) with a generated report
-- [ ] Docker: `Dockerfile` and `docker-compose.yml` written, not yet tested
+- [x] Docker Compose setup (Ollama + API + UI), tested end to end
 
 ## Run
 ```bash
@@ -68,11 +68,14 @@ The one failure, "What is a binary-cycle geothermal plant?", is a model failure 
 
 Answer correctness is a keyword check against the expected fact, so it's a lower bound: a correct answer phrased differently could be marked wrong.
 
-## Docker (untested)
+## Docker
 ```bash
-docker compose up --build
+docker compose up --build            # API on :8000, chat UI on :8501
+python -m scripts.docker_check       # waits for the stack, asks a test question
 ```
-This starts Ollama, downloads the model, then runs the API on `:8000` and the chat UI on `:8501`, with `./data/docs` mounted into the API container. The setup has been written and its config checked, but it hasn't been run on a real Docker install yet.
+This starts four services: `ollama`, a one-off `ollama-pull` job that downloads Llama 3.2, `api` and `ui`. `./data/docs` is mounted into the API container, and the index is built on first start. Host ports can be changed with `API_PORT` and `UI_PORT`, for example if something else already uses 8000.
+
+Tested with Docker Desktop 4.96 on Windows: all four containers started, `/health` and the UI responded, and `/ask` answered a question from the documents correctly.
 
 ## Relevance threshold
 `MIN_SCORE` decides when the assistant says "I don't know". `scripts/score_check.py` prints the top retrieval score for on-topic and off-topic questions. On the sample notes, on-topic questions scored 0.24 or higher and off-topic ones 0.21 or lower, so the threshold is 0.22. Re-run it when you add your own documents.
