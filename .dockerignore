@@ -1,0 +1,10 @@
+.venv/
+venv/
+.git/
+__pycache__/
+.pytest_cache/
+index/
+*.bat
+*_log.txt
+STEP1.md
+WALKTHROUGH_*.md

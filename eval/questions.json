@@ -1,0 +1,22 @@
+[
+  {"q": "How does a photovoltaic cell generate electricity?", "type": "docs", "keywords": ["electron"]},
+  {"q": "What material are most solar cells made of?", "type": "docs", "keywords": ["silicon"]},
+  {"q": "What efficiency do commercial silicon solar cells reach?", "type": "docs", "keywords": ["18", "23"]},
+  {"q": "How does temperature affect solar cell output?", "type": "docs", "keywords": ["fall", "decreas", "drop", "lower", "reduc"]},
+  {"q": "What is the Betz limit?", "type": "docs", "keywords": ["59", "16/27"]},
+  {"q": "How does wind power change if the wind speed doubles?", "type": "docs", "keywords": ["eight", "8"]},
+  {"q": "What efficiency do real wind turbines reach?", "type": "docs", "keywords": ["35", "45"]},
+  {"q": "What is biomass energy made from?", "type": "docs", "keywords": ["crop", "wood", "manure", "organic"]},
+  {"q": "How is biogas produced?", "type": "docs", "keywords": ["anaerobic"]},
+  {"q": "What liquid biofuel can biomass be turned into?", "type": "docs", "keywords": ["ethanol"]},
+  {"q": "How do geothermal power plants generate electricity?", "type": "docs", "keywords": ["steam", "turbine", "hot water"]},
+  {"q": "What is a binary-cycle geothermal plant?", "type": "docs", "keywords": ["second fluid", "boiling"]},
+  {"q": "Who won the 2018 FIFA World Cup?", "type": "refuse"},
+  {"q": "What is the capital of France?", "type": "refuse"},
+  {"q": "How do I bake sourdough bread?", "type": "refuse"},
+  {"q": "Explain the quicksort algorithm.", "type": "refuse"},
+  {"q": "How does a nuclear fusion reactor work?", "type": "refuse"},
+  {"q": "What is the price of Bitcoin today?", "type": "refuse"},
+  {"q": "what is 17 * 23 + 5?", "type": "math", "keywords": ["396"]},
+  {"q": "calculate (120 - 45) / 3", "type": "math", "keywords": ["25"]}
+]
