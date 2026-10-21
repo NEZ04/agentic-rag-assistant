@@ -1,0 +1,18 @@
+# Retrieval
+pypdf>=4.0
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+numpy
+
+# Agent (local LLM via Ollama)
+langgraph>=0.2
+langchain-core>=0.3
+langchain-ollama>=0.2
+
+# API + UI
+fastapi>=0.110
+uvicorn[standard]
+streamlit>=1.35
+
+# Dev
+pytest
